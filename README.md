@@ -1,7 +1,7 @@
 # XOCE Pebble UI
 
 A small shared implementation of equivalent visual elements in Timer, Dashboard,
-Dynamic and Open Activity. Package: `pebble-xoce-ui`. This local 0.1.0 candidate
+Dynamic and Open Activity. Package: `pebble-xoce-ui`. This local 0.1.1-dev.0 candidate
 has not been published.
 
 The package supplies readable font-role measurements, glyph-ink centering,
@@ -19,7 +19,10 @@ Ordinary app roles are header 26, main 24 and secondary 22, with 8px horizontal
 padding and a 32px header. Critical text should wrap or use a dedicated layout
 rather than shrink to unreadable sizes. The full-height Emery rail is 34px wide;
 its icon centers are 54/114/174 at 228px height. Button feedback is 5px with a 144ms
-cubic release. Timer's rigid 120ms menu selection and Dashboard's immediate
+quadratic EaseOut release and the stock 33ms frame interval. These follow the
+[SDK4.33.1 ActionBar](https://github.com/coredevices/PebbleOS/blob/v4.33.1/src/fw/applib/ui/action_bar_layer.c)
+and its [EaseOut curve](https://github.com/coredevices/PebbleOS/blob/v4.33.1/src/fw/applib/ui/animation_timing.c).
+Timer's rigid 120ms menu selection and Dashboard's immediate
 selection are intentionally different interaction roles.
 
 ```c

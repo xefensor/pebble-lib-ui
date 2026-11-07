@@ -28,6 +28,14 @@ int main(void) {
   assert(xoce_ui_press_offset(0)==5);
   assert(xoce_ui_press_offset(144)==0);
   assert(xoce_ui_press_offset(UINT32_MAX)==0);
+  /* Independent stock EaseOut sample points distinguish quadratic release
+   * from the former faster cubic curve, including the SDK's30fps cadence. */
+  assert(XOCE_UI_PRESS_FRAME_MS==33);
+  assert(xoce_ui_press_offset(XOCE_UI_PRESS_FRAME_MS)==3);
+  assert(xoce_ui_press_offset(36)==3);
+  assert(xoce_ui_press_offset(2*XOCE_UI_PRESS_FRAME_MS)==1);
+  assert(xoce_ui_press_offset(72)==1);
+  assert(xoce_ui_press_offset(3*XOCE_UI_PRESS_FRAME_MS)==0);
   GRect bar=GRect(166,0,34,228);
   assert(xoce_ui_action_anchor(bar,0).y==54);
   assert(xoce_ui_action_anchor(bar,1).y==114);

@@ -24,8 +24,10 @@ GRect xoce_ui_fit_image(GRect box, int width, int height) {
 int xoce_ui_press_offset(uint32_t elapsed) {
   if (elapsed >= XOCE_UI_PRESS_RELEASE_MS) return 0;
   const uint32_t remaining = XOCE_UI_PRESS_RELEASE_MS - elapsed;
-  const uint32_t denominator = XOCE_UI_PRESS_RELEASE_MS * XOCE_UI_PRESS_RELEASE_MS * XOCE_UI_PRESS_RELEASE_MS;
-  return (XOCE_UI_PRESS_DISTANCE * remaining * remaining * remaining + denominator / 2) / denominator;
+  /* Stock ActionBar uses AnimationCurveEaseOut: remaining distance is t².
+   * Round only the final pixel offset, without floating-point frame work. */
+  const uint32_t denominator = XOCE_UI_PRESS_RELEASE_MS * XOCE_UI_PRESS_RELEASE_MS;
+  return (XOCE_UI_PRESS_DISTANCE * remaining * remaining + denominator / 2) / denominator;
 }
 
 GPoint xoce_ui_action_anchor(GRect bar, unsigned button) {
