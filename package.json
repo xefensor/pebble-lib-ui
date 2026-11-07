@@ -26,7 +26,8 @@
     "check:docs": "python3 scripts/check-docs.py",
     "release:package": "python3 scripts/package-release.py",
     "test:native": "python3 scripts/test-native.py",
-    "test:source": "python3 scripts/test-native.py && node --check src/js/settings-style.js"
+    "test:source": "python3 scripts/test-native.py && node --check src/js/settings-style.js",
+    "check:setup": "python3 scripts/check-setup.py"
   },
   "pebble": {
     "projectType": "package",
