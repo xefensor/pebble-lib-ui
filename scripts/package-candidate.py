@@ -1,39 +1,22 @@
 #!/usr/bin/env python3
-"""Pack checked SDK + current sources, without publishing or writing root dist."""
+"""Pack current library sources with the candidate SDK in an isolated directory."""
 from pathlib import Path
-import hashlib
-import json
-import shutil
-import subprocess
-import tempfile
-
-root = Path(__file__).resolve().parents[1]
-sdk = root / 'build/candidate/dist.zip'
-record = json.loads((sdk.parent / 'build.json').read_text())
-active = {'package.json', 'wscript'}
-for directory in ('src', 'include'):
-    active.update(str(path.relative_to(root)) for path in (root / directory).rglob('*') if path.is_file())
-if active != set(record['inputs']):
-    raise SystemExit('Stale SDK candidate: source files added or removed; run npm run build')
-for name, checksum in record['inputs'].items():
-    if hashlib.sha256((root / name).read_bytes()).hexdigest() != checksum:
-        raise SystemExit('Stale SDK candidate: run npm run build after changing ' + name)
-if hashlib.sha256(sdk.read_bytes()).hexdigest() != record['sdkSha256']:
-    raise SystemExit('Modified SDK candidate: run npm run build')
-package = json.loads((root / 'package.json').read_text())
-with tempfile.TemporaryDirectory(prefix='xoce-ui-package-') as directory:
-    staging = Path(directory)
-    for name in ['package.json'] + package['files']:
-        source = sdk if name == 'dist.zip' else root / name
-        target = staging / name
-        if source.is_dir():
-            shutil.copytree(source, target)
+import json,shutil,subprocess,tempfile,sys
+from repo_workflow import check_build
+root=Path(__file__).resolve().parents[1];sdk=root/'build/candidate/dist.zip'
+check_build(root,sdk)
+package=json.loads((root/'package.json').read_text())
+with tempfile.TemporaryDirectory(prefix='pebble-library-candidate-') as directory:
+    staging=Path(directory)
+    for name in ['package.json']+package['files']:
+        source=sdk if name=='dist.zip' else root/name
+        target=staging/name
+        if source.is_dir():shutil.copytree(source,target)
         elif source.is_file():
-            target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(source, target)
-    result = subprocess.run(['npm', 'pack', '--ignore-scripts', '--pack-destination',
-                             str(sdk.parent), '--json'], cwd=staging,
-                            capture_output=True, text=True, check=True)
-    archive = sdk.parent / json.loads(result.stdout)[0]['filename']
-    print(archive)
-    print('sha256 ' + hashlib.sha256(archive.read_bytes()).hexdigest())
+            target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(source,target)
+    packed=subprocess.run(['npm','pack','--ignore-scripts','--pack-destination',str(sdk.parent),'--json'],cwd=staging,capture_output=True,text=True)
+    if packed.returncode:
+        print(packed.stderr or packed.stdout,file=sys.stderr)
+        raise SystemExit(packed.returncode)
+    result=json.loads(packed.stdout)[0]
+    print(str(sdk.parent/result['filename'])+' ('+str(result['size'])+' bytes)')

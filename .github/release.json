@@ -1,0 +1,16 @@
+{
+  "repository": "xefensor/pebble-lib-ui",
+  "display_name": "XOCE Pebble UI",
+  "tag_prefix": "v",
+  "prerelease": false,
+  "kind": "ui",
+  "notes": {
+    "path": "README.md",
+    "heading": "## Version {version}"
+  },
+  "assets": [
+    "dist.zip",
+    "releases/pebble-xoce-ui-{version}.tgz"
+  ],
+  "checksums_file": "releases/SHA256SUMS.txt"
+}

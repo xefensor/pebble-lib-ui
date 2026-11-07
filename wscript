@@ -1,5 +1,16 @@
+import os
+import shutil
+import waflib
+
 top = '.'
 out = 'build'
+
+
+def distclean(ctx):
+    if os.path.exists('dist'):
+        shutil.rmtree('dist')
+    waflib.Scripting.distclean(ctx)
+
 
 def options(ctx):
     ctx.load('pebble_sdk_lib')

@@ -1,21 +1,45 @@
-# Development and visual checks
+# Developing XOCE Pebble UI
 
-Run `npm test` and `npm run build` for library changes. `npm run pack:candidate`
-creates the local archive under build/candidate/. Preserve the independent
-release pins of existing apps; upgrade all four UI consumers together when
-changing shared appearance.
+Use Node 22, Python 3.12 and a C99 compiler (`cc`, or set `CC`). Portable tests do not need a
+phone, watch or Pebble SDK. For native SDK builds install [Pebble SDK
+4.33.1](https://developer.repebble.com/sdk/) and make `pebble` available on PATH. This
+repository builds independently from its own committed dependencies.
 
-In the XOCE workspace, run `python3 scripts/check-consumers.py` to verify that
-Timer, Dashboard, Dynamic and Open Activity use the same archive, matching
-lockfile integrity, installed SDK, source helpers and stylesheet. This workspace
-check is optional for standalone library development and writes only build/qa/.
+```sh
+npm ci --ignore-scripts
+npm test
+npm run build
+npm run pack:candidate
+```
 
-App repositories retain their own portable tests, packaged workflow checks and
-native emulator checks. New captures belong in build/qa/shared-ui/ in each app.
-Use the actual app build and synthetic fixtures, inspect whole compositions and
-compare equivalent roles side by side. Historical captures must stay frozen.
-Keep browser, native emulator, simulated phone and physical-device evidence
-distinct. A source check does not verify browser layout or real-watch battery.
+`npm test` runs source/native, workflow, release-fixture and documentation checks. CI uses Node
+22 and Python 3.12; it does not claim SDK, emulator or physical-device coverage.
 
-Changes are local until explicitly published. A package update is compiled into
-each app; it is not a separately installed service or an automatic global update.
+`src/c` and `include` own drawing helpers and measurements; `src/js/settings-style.js` owns the
+shared phone CSS. Apps retain all lifecycle, input, state and controller ownership.
+
+## Outputs and evidence
+
+Active source lives in the directories above. Generated SDK and npm packages live in ignored
+`build/candidate/`. Disposable QA belongs in `build/qa/`. Candidate checks reject changed source
+or altered build outputs. Frozen `dist/`, `releases/` and root `dist.zip` belong to their
+original release tags. Existing `docs/qa/` records and images are historical evidence; do not
+overwrite or relabel them.
+
+For visual changes, inspect the consuming app in the emulator; portable tests establish no
+visual/device claim. Report source tests, packaged audits, emulator runs and real-device tests
+separately.
+
+## Release commands
+
+`npm run release:prepare` validates committed frozen inputs and writes `build/release/`. It
+never builds or publishes. `npm run release:publish` is restricted to the manually dispatched
+GitHub release workflow on main. See [RELEASING](docs/RELEASING.md) for freezing a new version
+and safe reruns. Finish authorized work in reviewable local commits; pushing or publication
+needs explicit scope.
+
+[History index](docs/history/index.md).
+
+`python3 scripts/check-consumers.py` is an optional workspace audit that expects the four
+sibling apps. It is not part of building, testing, packaging or releasing this library;
+standalone checkouts need no sibling repositories.
