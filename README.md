@@ -1,8 +1,12 @@
 # XOCE Pebble UI
 
 A small shared implementation of equivalent visual elements in Timer, Dashboard,
-Dynamic and Open Activity. Package: `pebble-xoce-ui`. This local 0.1.1-dev.0 candidate
-has not been published.
+Dynamic and Open Activity. Package: `pebble-xoce-ui`, version **0.1.1**.
+
+[Download UI 0.1.1](https://github.com/xefensor/pebble-lib-ui/releases/tag/v0.1.1):
+[package](https://github.com/xefensor/pebble-lib-ui/releases/download/v0.1.1/pebble-xoce-ui-0.1.1.tgz),
+[SDK archive](https://github.com/xefensor/pebble-lib-ui/releases/download/v0.1.1/dist.zip), and
+[checksums](https://github.com/xefensor/pebble-lib-ui/releases/download/v0.1.1/SHA256SUMS.txt).
 
 The package supplies readable font-role measurements, glyph-ink centering,
 header geometry, canonical vector icons, action-bar drawing, aspect-preserving
@@ -49,3 +53,10 @@ Source license and attribution follow the other XOCE Pebble repositories.
 Content-only icon entrypoints let watchfaces reuse the same drawings without
 linking the action-control family. This keeps Dynamic within SDK 4.33.1’s
 64 KiB loaded-image limit. The SDK version is unchanged.
+
+## Version 0.1.1
+
+- First GitHub release of the shared native drawing helpers and phone settings stylesheet.
+- Includes readable type roles, measured glyph centering, canonical icons, full-height action rails, image fitting and stock Pebble action-bar feedback.
+- Timer retains its rigid 120 ms selection; Dashboard retains immediate selection. Apps keep ownership of input, state, timers and storage.
+- Built with Pebble SDK 4.33.1 for Emery. Validated with portable tests, package checks and consuming-app emulator captures; physical-device and fresh browser testing remain unverified.
