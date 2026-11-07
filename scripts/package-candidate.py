@@ -10,6 +10,11 @@ import tempfile
 root = Path(__file__).resolve().parents[1]
 sdk = root / 'build/candidate/dist.zip'
 record = json.loads((sdk.parent / 'build.json').read_text())
+active = {'package.json', 'wscript'}
+for directory in ('src', 'include'):
+    active.update(str(path.relative_to(root)) for path in (root / directory).rglob('*') if path.is_file())
+if active != set(record['inputs']):
+    raise SystemExit('Stale SDK candidate: source files added or removed; run npm run build')
 for name, checksum in record['inputs'].items():
     if hashlib.sha256((root / name).read_bytes()).hexdigest() != checksum:
         raise SystemExit('Stale SDK candidate: run npm run build after changing ' + name)
