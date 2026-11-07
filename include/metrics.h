@@ -1,0 +1,15 @@
+#pragma once
+
+/* SDK-independent roles also used by portable layout calculations. */
+enum {
+  XOCE_UI_HEADER_POINT = 26,
+  XOCE_UI_BODY_POINT = 24,
+  XOCE_UI_SECONDARY_POINT = 22,
+  XOCE_UI_HEADER_HEIGHT = 32,
+  XOCE_UI_INSET = 8,
+  XOCE_UI_RAIL_ICON_SIZE = 18,
+  XOCE_UI_PRESS_DISTANCE = 5,
+  XOCE_UI_PRESS_RELEASE_MS = 144,
+  XOCE_UI_CHOICE_HEIGHT = 30,
+  XOCE_UI_CHOICE_STRIDE = 36
+};
