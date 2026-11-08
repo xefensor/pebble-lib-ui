@@ -4,11 +4,10 @@ Keep this a small drawing and stylesheet package. Apps own windows, input,
 timers, state, alarms, storage, font loading and settings controllers. Extract
 existing shared presentation; do not introduce a screen framework or event system.
 
-Preserve readable type and full-height action rails. Timer's development list
-checkpoint uses native MenuLayer motion; Dashboard currently keeps immediate
-selection. Apps own those interaction choices. Equivalent controls use the same
-assets,
-measurements and feedback. Watchfaces may retain their distinct composition.
+Preserve readable type and full-height action rails. Timer and Dashboard
+development candidates use native MenuLayer motion and real Window navigation.
+Apps own those interaction choices and click-provider composition. Equivalent
+controls use the same assets, measurements and feedback. Watchfaces may retain their distinct composition.
 
 Read [README](README.md) for the public boundary and [CONTRIBUTING](CONTRIBUTING.md)
 for setup, candidate outputs and checks. Read [RELEASING](docs/RELEASING.md) for the
