@@ -33,8 +33,10 @@ The package supplies type-role measurements, glyph centering, canonical vector i
 full-height action rails, image fitting and button feedback. Hosts own windows, callbacks,
 input, timers, font loading, alarms, settings and storage.
 
-Content-only icon entrypoints let watchfaces avoid linking action-control helpers. Timer keeps
-its rigid 120 ms menu motion; Dashboard keeps immediate selection.
+Content-only icon entrypoints let watchfaces avoid linking action-control helpers.
+Timer's development list checkpoint uses native MenuLayer motion and measured rows;
+Dashboard currently keeps immediate selection. The package owns neither input nor
+window navigation.
 
 ## Compatibility
 
