@@ -42,6 +42,17 @@ window navigation.
 
 The current SDK target is **Pebble Time 2 / Emery**, using **Pebble SDK 4.33.1**.
 
+The development candidate adds native PebbleOS Header, MenuCellTitle,
+MenuCellSubtitle and Footer roles. `xoce_ui_native_font_key()` selects the exact
+system bitmap font for Small, Medium or Large, with the original firmware table
+and the completed Large table from firmware 4.44. Hosts supply the firmware
+capability and effective size. See [pinned role data and sources](docs/native-type.json).
+`xoce_ui_effective_text_size()` maps Emery's OS preference or a matching manual
+override. `xoce_ui_native_measure()` and `xoce_ui_native_draw()` use the same font;
+`xoce_ui_native_header_layout()` reserves the measured complete clock before
+allocating the left label. The library reads no settings and owns no lifecycle.
+Watchfaces keep their own fonts and composition.
+
 ## Version 0.1.1
 
 - First GitHub release of the shared native drawing helpers and phone settings stylesheet.

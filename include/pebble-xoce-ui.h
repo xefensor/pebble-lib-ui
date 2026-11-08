@@ -2,6 +2,17 @@
 
 #include <pebble.h>
 #include "metrics.h"
+#include "native-type.h"
+
+/* Measurement and drawing select the same unscaled public system font. */
+GSize xoce_ui_native_measure(const char *text,unsigned size,XoceUiTypeRole role,
+                            bool modern,int width);
+void xoce_ui_native_draw(GContext *ctx,const char *text,unsigned size,XoceUiTypeRole role,
+                         bool modern,GRect bounds,GColor color,GTextAlignment align,
+                         GTextOverflowMode overflow);
+typedef struct { GRect label,clock; int height; } XoceUiHeaderLayout;
+XoceUiHeaderLayout xoce_ui_native_header_layout(const char *clock,unsigned size,bool modern,
+                                               int width,int inset,int minimum_height);
 
 typedef enum {
   XOCE_ICON_NONE, XOCE_ICON_EDIT, XOCE_ICON_PAUSE, XOCE_ICON_PLAY,

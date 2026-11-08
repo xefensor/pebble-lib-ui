@@ -10,6 +10,7 @@
     "settings-style.js",
     "pebble-xoce-ui.h",
     "metrics.h",
+    "native-type.h",
     "src",
     "include",
     "README.md",
