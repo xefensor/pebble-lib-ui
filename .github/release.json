@@ -9,8 +9,9 @@
     "heading": "## Version {version}"
   },
   "assets": [
-    "dist.zip",
+    "releases/pebble-xoce-ui-{version}-sdk.zip",
     "releases/pebble-xoce-ui-{version}.tgz"
   ],
-  "checksums_file": "releases/SHA256SUMS.txt"
+  "checksums_file": "releases/SHA256SUMS-{version}.txt",
+  "sdk_archive": "releases/pebble-xoce-ui-{version}-sdk.zip"
 }

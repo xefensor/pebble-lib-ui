@@ -83,6 +83,6 @@ Development outputs belong in ignored `build/`; published archives stay frozen.
 
 ## Version 0.1.2
 
-Builds for Emery, Flint and Gabbro with SDK 4.44. Adds an opt-in round-safe rectangular viewport helper; hosts retain layer, event, input and resource ownership. Existing type profiles and drawing interfaces are unchanged.
+Builds for Emery and Gabbro with SDK 4.44. Adds an opt-in round-safe rectangular viewport helper; hosts retain layer, event, input and resource ownership. Existing type profiles and drawing interfaces are unchanged.
 
 This is local release preparation; published downloads above remain frozen.
