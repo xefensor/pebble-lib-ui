@@ -37,3 +37,13 @@ GPoint xoce_ui_action_anchor(GRect bar, unsigned button) {
   return GPoint(bar.origin.x + bar.size.w / 2,
                 bar.origin.y + bar.size.h / 2 + ((int)button - 1) * step);
 }
+
+GRect xoce_ui_safe_viewport(GRect bounds, bool round) {
+  if (!round) return bounds;
+  const int diameter = bounds.size.w < bounds.size.h ? bounds.size.w : bounds.size.h;
+  /* floor(diameter / sqrt(2)); round down so the corners remain inside the
+   * circle. Integer arithmetic keeps this usable in small drawing packages. */
+  const int side = (diameter * 181 / 256) & ~1;
+  return GRect(bounds.origin.x + (bounds.size.w - side) / 2,
+               bounds.origin.y + (bounds.size.h - side) / 2, side, side);
+}

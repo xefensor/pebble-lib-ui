@@ -33,3 +33,13 @@ with tempfile.TemporaryDirectory(prefix='xoce-native-profiles-') as scratch:
     wanted = [row[role] for family in ('baseline', 'modern') for row in expected[family] for role in expected['roles']]
     assert actual == wanted
     print('All native font keys match pinned PebbleOS semantic roles: PASS')
+
+# Flint exposes SDK Small/Medium/Large, rather than the large-display offset.
+with tempfile.TemporaryDirectory(prefix="xoce-flint-profiles-") as scratch:
+    source=Path(scratch)/"flint.c"
+    source.write_text('#include "native-type.h"\n#include <assert.h>\n#include <stdio.h>\nint main(void){for(unsigned size=0;size<3;++size){assert(xoce_ui_effective_text_size(0,size)==size);for(unsigned role=0;role<XOCE_UI_TYPE_ROLE_COUNT;++role)puts(xoce_ui_native_font_key(size,(XoceUiTypeRole)role,true));}}\n')
+    binary=Path(scratch)/"flint"
+    subprocess.run([os.environ.get("CC","cc"),"-std=c99","-Wall","-Wextra","-Werror","-DPBL_PLATFORM_FLINT","-I",str(root/"include"),str(source),"-o",str(binary)],check=True)
+    actual=subprocess.check_output([str(binary)],text=True).splitlines()
+    assert actual==[row[role] for row in expected["flint"] for role in expected["roles"]]
+    print("Flint native roles and OS-size mapping: PASS")

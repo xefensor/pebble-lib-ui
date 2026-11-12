@@ -15,7 +15,7 @@ the watch separately.
 
 ## Compatibility
 
-The current SDK target is **Pebble Time 2 / Emery**, using **Pebble SDK 4.33.1**.
+The development SDK targets are **Emery / Time 2, Flint / Pebble 2 Duo and Gabbro / Round 2**, using **Pebble SDK 4.44**.
 
 The development candidate adds native PebbleOS Header, MenuCellTitle,
 MenuCellSubtitle and Footer roles. `xoce_ui_native_font_key()` selects the exact
@@ -80,3 +80,9 @@ Development outputs belong in ignored `build/`; published archives stay frozen.
 ## Licence
 
 [PolyForm Noncommercial 1.0.0](LICENSE). Preserve bundled third-party notices and attribution.
+
+## Version 0.1.2
+
+Builds for Emery, Flint and Gabbro with SDK 4.44. Adds an opt-in round-safe rectangular viewport helper; hosts retain layer, event, input and resource ownership. Existing type profiles and drawing interfaces are unchanged.
+
+This is local release preparation; published downloads above remain frozen.

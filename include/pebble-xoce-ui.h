@@ -37,6 +37,9 @@ GRect xoce_ui_fit_image(GRect box, int width, int height);
 /* Positive displacement, toward the content; caller chooses its x sign. */
 int xoce_ui_press_offset(uint32_t elapsed_ms);
 GPoint xoce_ui_action_anchor(GRect bar, unsigned button);
+/* Apps may place rectangular menus/headers inside the round screen without
+ * clipping any corner. The host keeps ownership of its layers and input. */
+GRect xoce_ui_safe_viewport(GRect bounds, bool round);
 void xoce_ui_draw_header(GContext *ctx, int content_width,
                          const char *title, const char *clock,
                          GColor ink, GColor divider,

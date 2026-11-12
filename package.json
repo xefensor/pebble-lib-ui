@@ -1,6 +1,6 @@
 {
   "name": "pebble-xoce-ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Xef",
   "description": "Small shared drawing helpers and phone settings styles for XOCE Pebble apps.",
   "main": "src/js/settings-style.js",
@@ -34,7 +34,9 @@
     "projectType": "package",
     "sdkVersion": "3",
     "targetPlatforms": [
-      "emery"
+      "emery",
+      "flint",
+      "gabbro"
     ],
     "resources": {
       "media": []
