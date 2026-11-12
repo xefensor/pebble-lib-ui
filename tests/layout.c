@@ -25,22 +25,36 @@ int main(void) {
     int current=xoce_ui_press_offset(elapsed);
     assert(current>=0 && current<=previous);previous=current;
   }
-  assert(xoce_ui_press_offset(0)==5);
+  assert(xoce_ui_press_offset(0)==XOCE_UI_PRESS_DISTANCE);
   assert(xoce_ui_press_offset(144)==0);
   assert(xoce_ui_press_offset(UINT32_MAX)==0);
   /* Independent stock EaseOut sample points distinguish quadratic release
    * from the former faster cubic curve, including the SDK's30fps cadence. */
   assert(XOCE_UI_PRESS_FRAME_MS==33);
+  #ifndef PBL_ROUND
   assert(xoce_ui_press_offset(XOCE_UI_PRESS_FRAME_MS)==3);
   assert(xoce_ui_press_offset(36)==3);
   assert(xoce_ui_press_offset(2*XOCE_UI_PRESS_FRAME_MS)==1);
   assert(xoce_ui_press_offset(72)==1);
   assert(xoce_ui_press_offset(3*XOCE_UI_PRESS_FRAME_MS)==0);
+  #else
+  assert(xoce_ui_press_offset(33)==3);
+  assert(xoce_ui_press_offset(66)==2);
+  assert(xoce_ui_press_offset(99)==1);
+  #endif
+  #ifndef PBL_ROUND
   GRect bar=GRect(166,0,34,228);
   assert(xoce_ui_action_anchor(bar,0).y==54);
   assert(xoce_ui_action_anchor(bar,1).y==114);
   assert(xoce_ui_action_anchor(bar,2).y==174);
   assert(xoce_ui_action_anchor(bar,1).x==183);
+  #else
+  GRect bar=GRect(220,0,40,260);
+  assert(xoce_ui_action_anchor(bar,0).y==89);
+  assert(xoce_ui_action_anchor(bar,1).y==130);
+  assert(xoce_ui_action_anchor(bar,2).y==171);
+  assert(xoce_ui_action_anchor(bar,1).x==239);
+  #endif
   const GRect rectangle=GRect(0,0,144,168);
   const GRect same=xoce_ui_safe_viewport(rectangle,false);
   assert(same.size.w==144 && same.size.h==168);
@@ -56,6 +70,15 @@ int main(void) {
     for(unsigned button=0;button<3;button++) {
       GPoint anchor=xoce_ui_action_anchor(other,button);
       assert(anchor.y>=18 && anchor.y<=(int)height-18);
+    }
+  }
+  for(int y=0;y<260;y++)for(int h=1;h<=260-y;h++) {
+    GRect band=xoce_ui_circle_band(GRect(0,0,260,260),GRect(0,y,220,h),6);
+    if(!band.size.w)continue;
+    assert(band.origin.x>=0 && band.origin.x+band.size.w<=220);
+    for(int edge=0;edge<2;edge++)for(int end=0;end<2;end++) {
+      int dx=band.origin.x+edge*band.size.w-130,dy=y+end*h-130;
+      assert(dx*dx+dy*dy<=124*124);
     }
   }
   /* Accents/descenders with different font offsets share the visible center. */

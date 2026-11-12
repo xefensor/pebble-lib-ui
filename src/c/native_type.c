@@ -22,3 +22,15 @@ XoceUiHeaderLayout xoce_ui_native_header_layout(const char *clock,unsigned size,
   return (XoceUiHeaderLayout){.label=GRect(inset,0,label_width,height),
       .clock=GRect(clock_x,0,clock_width,height),.height=height};
 }
+
+XoceUiHeaderLayout xoce_ui_round_header_layout(GRect surface,int content_right,
+                                               unsigned size,bool modern) {
+  const int line=xoce_ui_native_measure("22:58",size,XOCE_UI_TYPE_HEADER,modern,2048).h;
+  const int top=8;
+  XoceUiHeaderLayout out={.height=top+2*line+4};
+  out.clock=xoce_ui_circle_band(surface,GRect(surface.origin.x,top,surface.size.w,line),5);
+  out.label=xoce_ui_circle_band(surface,GRect(surface.origin.x,top+line,surface.size.w,line+2),5);
+  if(out.label.origin.x+out.label.size.w>content_right-4)out.label.size.w=content_right-4-out.label.origin.x;
+  /* Clock retains the physical center. Context centers in the usable chord. */
+  return out;
+}

@@ -13,11 +13,15 @@ with tempfile.TemporaryDirectory(prefix='xoce-ui-test-') as scratch:
                     '-I', str(root / 'include'), str(root / 'src/c/layout.c'),
                     str(root / 'tests/layout.c'), '-o', str(binary)], check=True)
     subprocess.run([str(binary)], check=True)
+    subprocess.run([os.environ.get('CC','cc'), '-std=c99', '-Wall', '-Wextra', '-Werror',
+                    '-DPBL_ROUND', '-I',str(root/'tests/fake-sdk'),'-I',str(root/'include'),
+                    str(root/'src/c/layout.c'),str(root/'tests/layout.c'),'-o',str(binary)],check=True)
+    subprocess.run([str(binary)],check=True)
     binary = Path(scratch) / 'native-type'
     subprocess.run([os.environ.get('CC', 'cc'), '-std=c99', '-Wall', '-Wextra',
                     '-Werror', '-pedantic', '-I', str(root / 'tests/fake-sdk'),
                     '-I', str(root / 'include'), str(root / 'src/c/native_type.c'),
-                    str(root / 'tests/native-type.c'), '-o', str(binary)], check=True)
+                    str(root / 'tests/native-type.c'), str(root / 'src/c/layout.c'), '-o', str(binary)], check=True)
     subprocess.run([str(binary)], check=True)
 
 # Compare every public role against independently pinned upstream tables.

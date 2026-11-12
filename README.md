@@ -86,3 +86,18 @@ Development outputs belong in ignored `build/`; published archives stay frozen.
 Builds for Emery and Gabbro with SDK 4.44. Adds an opt-in round-safe rectangular viewport helper; hosts retain layer, event, input and resource ownership. Existing type profiles and drawing interfaces are unchanged.
 
 This is local release preparation; published downloads above remain frozen.
+
+
+## Round geometry (0.1.3 development candidate)
+
+`xoce_ui_circle_band(surface, box, inset)` intersects a text/artwork rectangle
+with the safe chord across its entire height. Pass the physical display bounds
+as `surface`, even during Peek. Measure and draw with the same returned width.
+`xoce_ui_round_header_layout` places the complete clock above a contextual title.
+Apps still own windows, menus, input, paging and timers. The legacy inscribed
+viewport remains available for compatibility; current Gabbro consumers use bands.
+
+The Gabbro action bar follows PebbleOS v4.44.4: 40px width, a circle of diameter
+`display_height * 19 / 9`, icon centers at y=89/130/171 and x=239 on 260×260,
+and 4px press displacement. Rectangular geometry and feedback retain their
+existing values. Native SDK comparisons are separate from portable geometry tests.

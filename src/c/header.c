@@ -24,7 +24,13 @@ void xoce_ui_draw_action_bar(GContext *ctx, GRect bar,
                              GColor ink) {
   if (!ctx || !icons) return;
   graphics_context_set_fill_color(ctx, background);
+#ifdef PBL_ROUND
+  const int diameter=bar.size.h*19/9;
+  graphics_fill_radial(ctx,GRect(bar.origin.x,bar.origin.y+(bar.size.h-diameter)/2,
+                              diameter,diameter),GOvalScaleModeFitCircle,diameter/2,0,TRIG_MAX_ANGLE);
+#else
   graphics_fill_rect(ctx, bar, 0, GCornerNone);
+#endif
   for (unsigned i = 0; i < 3; ++i) {
     GPoint center = xoce_ui_action_anchor(bar, i);
     if (offsets) center.x += offsets[i];

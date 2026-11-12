@@ -40,6 +40,11 @@ GPoint xoce_ui_action_anchor(GRect bar, unsigned button);
 /* Apps may place rectangular menus/headers inside the round screen without
  * clipping any corner. The host keeps ownership of its layers and input. */
 GRect xoce_ui_safe_viewport(GRect bounds, bool round);
+/* Intersect a rectangle with the widest safe chord across its complete height.
+ * surface always describes the physical display, including during Peek. */
+GRect xoce_ui_circle_band(GRect surface, GRect box, int inset);
+XoceUiHeaderLayout xoce_ui_round_header_layout(GRect surface, int content_right,
+                                               unsigned size, bool modern);
 void xoce_ui_draw_header(GContext *ctx, int content_width,
                          const char *title, const char *clock,
                          GColor ink, GColor divider,
