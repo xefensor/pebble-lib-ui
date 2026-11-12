@@ -64,7 +64,7 @@ window navigation.
 
 ## Development
 
-Use Node 22, Python 3.12 and a C compiler. SDK builds additionally need Pebble SDK 4.33.1 on
+Use Node 22, Python 3.12 and a C compiler. SDK builds additionally need Pebble SDK 4.44 on
 PATH.
 
 ```sh
