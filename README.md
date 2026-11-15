@@ -33,6 +33,11 @@ The package supplies type-role measurements, glyph centering, canonical vector i
 full-height action rails, image fitting and button feedback. Hosts own windows, callbacks,
 input, timers, font loading, alarms, settings and storage.
 
+The [UI integration guide](https://xefensor.github.io/xoce/docs/develop/ui/)
+covers these public 0.1.1 helpers and the native/settings ownership boundary.
+Current app repositories can bundle newer, independently pinned snapshots;
+those do not become standalone library releases automatically.
+
 Content-only icon entrypoints let watchfaces avoid linking action-control helpers. Timer keeps
 its rigid 120 ms menu motion; Dashboard keeps immediate selection.
 

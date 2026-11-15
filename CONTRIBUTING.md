@@ -1,5 +1,8 @@
 # Developing XOCE Pebble UI
 
+Follow the [shared XOCE contributor conventions](https://github.com/xefensor/xoce/blob/main/docs/contributor-conventions.md)
+alongside the library-specific boundaries below.
+
 ## Select the development environment
 
 This checkout selects **Node 22.23.4** in `.node-version` and **Python 3.12.15** in
@@ -58,6 +61,24 @@ needs explicit scope.
 
 [History index](docs/history/index.md).
 
-`python3 scripts/check-consumers.py` is an optional workspace audit that expects the four
-sibling apps. It is not part of building, testing, packaging or releasing this library;
+## Optional consumer pin audit
+
+`python3 scripts/check-consumers.py` audits the five sibling app checkouts
+(Timer, Dashboard, Dynamic, Halftone and Open Activity). Each must already have
+its dependencies installed with `npm ci --ignore-scripts`. To check only selected
+apps, pass their checkout paths:
+
+```sh
+python3 scripts/check-consumers.py ../pebble-app-timer ../halftone-watchface
+```
+
+The audit verifies each app's own `vendor/UI.json` checksums, archive package
+identity, dependency/lockfile and installed source/SDK bytes. Different consumer
+versions and archives are allowed. The JSON report in `build/qa/consumer-pins.json`
+separately records whether each package's version and sources match this library
+checkout, including `src/`, `include/` and root `.js`/`.h`/`.c` exports. A newer
+embedded 0.1.3 snapshot does not validate the standalone 0.1.1
+release. Font hashes and cross-consumer equality are informational. The audit
+does not build an app or establish runtime, emulator, visual or device behavior.
+It is not required for building, testing, packaging or releasing this library;
 standalone checkouts need no sibling repositories.
